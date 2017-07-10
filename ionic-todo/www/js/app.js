@@ -3,7 +3,7 @@
 // angular.module is a global place for creating, registering and retrieving Angular modules
 // 'starter' is the name of this angular module example (also set in a <body> attribute in index.html)
 // the 2nd parameter is an array of 'requires'
-angular.module('starter', ['ionic'])
+angular.module('starter', ['ionic','ui.router'])
 
 .run(function($ionicPlatform) {
   $ionicPlatform.ready(function() {
@@ -21,4 +21,36 @@ angular.module('starter', ['ionic'])
       StatusBar.styleDefault();
     }
   });
+})
+.config(function($stateProvider,$urlRouterProvider){
+        
+        $stateProvider
+        .state('add',{
+            url:'add',
+            templateUrl:'/add.html'
+        })
+        .state('save',{
+            url:'index',
+            templateUrl:'/index.html'
+            
+        })
+        $urlRouterProvider.otherwise('/');
+    })
+
+
+
+.controller('ctrl',function($scope){
+  $scope.tasks =
+  [
+  {title:"Pirmas",completed:true},
+  {title:"Antras",completed:false}
+  ];
+  $scope.newTask = function(task){
+     $scope.tasks.push({
+       title:$scope.task,
+        completed:false});
+        $scope.task = "";
+      console.log('newTask') 
+  };
+  
 })
